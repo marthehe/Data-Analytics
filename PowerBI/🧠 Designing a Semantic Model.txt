@@ -1,0 +1,137 @@
+# 🧠 Designing a Semantic Model in Power BI (Intermediate)
+
+A **semantic model** in Power BI acts as the brain of your report — it defines how data is structured, related, and calculated for users. A well-designed semantic model ensures consistency, performance, and ease of use across reports and dashboards.
+
+---
+
+## 📌 What is a Semantic Model?
+
+A semantic model is a curated layer of logic and metadata that sits between raw data and visual reports. It includes:
+
+- Tables and relationships  
+- Business logic (DAX measures and calculated columns)  
+- Hierarchies and KPIs  
+- Column formatting and naming  
+- Security rules (e.g., Row-Level Security)
+
+> ✅ It simplifies the user experience and promotes a **single source of truth**.
+
+---
+
+## 🔧 Core Components
+
+### 📊 Tables
+
+Organized into **fact** and **dimension** tables:
+
+- **Fact tables** store transactional data (e.g., Sales, Orders)
+- **Dimension tables** store descriptive context (e.g., Customers, Products, Dates)
+
+> **Best Practice:** Use a **star schema** layout to simplify relationships and improve performance.
+
+---
+
+### 🔗 Relationships
+
+- Define how tables are connected  
+- Use **single-directional** relationships unless bidirectional is necessary  
+- Ensure relationships are based on primary keys (no duplicates)
+
+#### 💡 Tips:
+- Avoid circular or many-to-many relationships  
+- Use bridge tables if necessary
+
+---
+
+### 🧮 DAX Measures
+
+Use DAX to build reusable business logic:
+
+- Aggregations: `SUM`, `AVERAGE`, `COUNT`
+- Calculations: profit margin, YoY change
+- Time intelligence: YTD, MTD, QTD
+
+#### 💬 Example DAX Measures:
+```DAX
+Total Sales = SUM(Sales[Amount])
+
+Profit Margin % = DIVIDE([Profit], [Revenue])
+
+YTD Sales = TOTALYTD([Total Sales], 'Date'[Date])
+> ✅ Prefer **measures** over **calculated columns** for flexibility and performance.
+
+---
+
+## 📁 Hierarchies
+
+Group related columns into hierarchies for easier navigation and drill-down.
+
+### 🔄 Examples:
+- **Date Hierarchy**: Year > Quarter > Month > Day  
+- **Geography Hierarchy**: Country > Region > City
+
+---
+
+## ✍️ Formatting & Naming
+
+- Rename fields to be business-friendly  
+- Set appropriate formats (e.g., %, currency, decimals)  
+- Hide technical or unnecessary columns (e.g., IDs used only for joins)
+
+---
+
+## 🔒 Row-Level Security (RLS)
+
+RLS restricts data access by user identity. You define roles and DAX filters that apply to those roles.
+
+### 🛡️ Example RLS Filter:
+```DAX
+[Region] = USERPRINCIPALNAME()
+> Useful for multi-user reports where each user sees only relevant data.
+
+---
+
+## 🚀 Optimization Tips
+
+| Area           | Optimization Tip                                      |
+|----------------|--------------------------------------------------------|
+| Tables         | Remove unused columns, reduce column cardinality       |
+| DAX            | Use variables, avoid row-based logic                   |
+| Relationships  | Prefer single-direction filtering                      |
+| Measures       | Use aggregation in DAX instead of visuals              |
+| Model Size     | Use proper data types (e.g., integers over strings)    |
+
+> Use **Performance Analyzer** in Power BI Desktop to identify and fix slow visuals.
+
+---
+
+## 📦 Sharing & Reuse
+
+- Publish your semantic model to Power BI Service as a **dataset**
+- Reuse the dataset across multiple reports (**thin reports**)
+- Promote or certify trusted datasets for team-wide usage
+
+> Promotes consistency and avoids duplicated work across reports and teams.
+
+---
+
+## 📚 Further Learning
+
+- [🔗 Star Schema Basics (Microsoft Docs)](https://learn.microsoft.com/en-us/power-bi/guidance/star-schema)
+- [🔗 DAX Best Practices](https://learn.microsoft.com/en-us/power-bi/guidance/dax-performance-best-practices)
+- [🔗 Row-Level Security Guide](https://learn.microsoft.com/en-us/power-bi/admin/service-security-row-level-security)
+- [🔗 Optimize Semantic Models](https://learn.microsoft.com/en-us/power-bi/guidance/modeling-best-practices)
+
+---
+
+## ✅ Summary
+
+| Semantic Model Element | Best Practice                                  |
+|------------------------|-------------------------------------------------|
+| Table Design           | Use star schema with clear fact/dim split       |
+| Relationships          | Prefer single-direction filtering               |
+| DAX Measures           | Use reusable, documented measures               |
+| Hierarchies            | Enhance UX with drill-downs                     |
+| RLS                    | Apply user-level filters where needed           |
+
+> A strong semantic model is the foundation of trustworthy and high-performing Power BI reports. **Invest time in modeling — it pays off at every layer of reporting.**
